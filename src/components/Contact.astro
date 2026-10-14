@@ -1,0 +1,310 @@
+---
+import site from '../data/site.json';
+import { SEMI, ORDINE } from '../data/semi';
+import Act from './Act.astro';
+import Suit from './Suit.astro';
+
+const configured = !site.formEndpoint.includes('IL_TUO_ID');
+const canali = [
+  { s: 'picche', label: 'WhatsApp', href: `https://wa.me/${site.whatsapp}`, ext: true },
+  { s: 'cuori', label: site.telefono, href: `tel:${site.telefono.replace(/\s/g, '')}` },
+  { s: 'fiori', label: site.email, href: `mailto:${site.email}` },
+  { s: 'quadri', label: 'Instagram', href: site.social.instagram, ext: true },
+] as const;
+---
+
+<Act id="prenota" tone="dark">
+  <header class="contact__head">
+    <h2 class="title" id="prenota-title">Raccontami<br />la tua <em>serata</em><span class="pip">.</span></h2>
+    <!-- The fastest ways first: no form at all -->
+    <div class="contact__lead">
+      <a href={`https://wa.me/${site.whatsapp}`} class="btn btn--ghost contact__quick" target="_blank" rel="noopener">
+        <svg class="contact__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5 5.3 15A8 8 0 1 1 9 18.7Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path></svg>
+        WhatsApp
+      </a>
+      <a href={`tel:${site.telefono.replace(/\s/g, '')}`} class="btn btn--ghost contact__quick">
+        <svg class="contact__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16.5 16.5 0 0 1 4.5 5.5a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path></svg>
+        Chiama
+      </a>
+    </div>
+  </header>
+
+  <div class="ticket flip" data-contact>
+    <div class="flip__inner">
+      <div class="flip__face flip__face--back ticket__face" data-ticket>
+        <form class="ticket__form" action={site.formEndpoint} method="POST" data-form data-configured={configured ? '1' : undefined} data-email={site.email}>
+          <fieldset class="ticket__suits">
+            <legend class="label">Che evento è?</legend>
+            <div class="ticket__suits-row">
+              {
+                ORDINE.map((k, i) => (
+                  <label class="ticket__seme">
+                    <input type="radio" name="seme" value={k} checked={i === 0} />
+                    <span class="ticket__seme-chip">
+                      <Suit name={k} />
+                      <span>{SEMI[k].breve}</span>
+                    </span>
+                  </label>
+                ))
+              }
+            </div>
+          </fieldset>
+
+          <div class="ticket__grid">
+            <label class="field">
+              <span class="label">Nome <abbr title="obbligatorio">*</abbr></span>
+              <input type="text" name="nome" required autocomplete="name" />
+            </label>
+            <label class="field">
+              <span class="label">Data dell'evento</span>
+              <input type="date" name="data" data-date />
+            </label>
+            <label class="field field--wide">
+              <span class="label">Telefono o email <abbr title="obbligatorio">*</abbr></span>
+              <input type="text" name="contatto" required autocomplete="email" autocapitalize="off" spellcheck="false" pattern="\s*(\S+@\S+\.\S+|\+?[0-9](\s|[0-9]|\.|-|/){5,})\s*" title="Un numero di telefono o un indirizzo email" />
+            </label>
+          </div>
+
+          <div class="ticket__submit">
+            <button type="submit" class="btn btn--ticket" data-submit>
+              <span data-submit-label>Invia la richiesta</span>
+              <span class="btn__stub" aria-hidden="true">
+                <svg class="btn__icon" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+              </span>
+            </button>
+            <p class="ticket__error" data-error role="alert" hidden>
+              Non sono riuscito a inviare la richiesta. Riprova, oppure scrivimi su
+              <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">WhatsApp</a>.
+            </p>
+          </div>
+        </form>
+
+        <aside class="ticket__stub" aria-label="Contatti diretti">
+          <p class="ticket__name">Mago<br /><em>{site.nome}</em></p>
+          <ul class="ticket__channels">
+            {
+              canali.map((c) => (
+                <li>
+                  <a href={c.href} {...('ext' in c ? { target: '_blank', rel: 'noopener' } : {})}>
+                    <Suit name={c.s} />
+                    <span>{c.label}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="label ticket__zone">{site.zona}</p>
+        </aside>
+      </div>
+
+      <div class="flip__face flip__face--front ticket__done" data-done tabindex="-1" inert>
+        <Suit name="picche" class="suit ticket__done-suit" />
+        <p class="ticket__done-title" data-done-title>La tua richiesta è già nella mia mente.</p>
+        <p class="ticket__done-text" data-done-text>Ti rispondo al più presto. Nel frattempo, prova a non pensare a una carta.</p>
+        <button type="button" class="btn btn--ghost" data-again>Nuova richiesta</button>
+      </div>
+    </div>
+  </div>
+</Act>
+
+<script>
+  import { SEMI } from '../data/semi';
+  import type { Seme } from '../data/suits';
+
+  const wrap = document.querySelector<HTMLElement>('[data-contact]')!;
+  const ticket = wrap.querySelector<HTMLElement>('[data-ticket]')!;
+  const form = wrap.querySelector<HTMLFormElement>('[data-form]')!;
+  const done = wrap.querySelector<HTMLElement>('[data-done]')!;
+  const error = form.querySelector<HTMLElement>('[data-error]')!;
+  const submit = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+  const submitLabel = form.querySelector<HTMLElement>('[data-submit-label]')!;
+  form.querySelector<HTMLInputElement>('[data-date]')!.min = new Date().toISOString().slice(0, 10);
+
+  const flip = (on: boolean) => {
+    wrap.classList.toggle('is-flipped', on);
+    ticket.inert = on;
+    done.inert = !on;
+    (on ? done : form.querySelector<HTMLInputElement>('input[name="nome"]')!).focus({ preventScroll: true });
+  };
+
+  // No form service configured yet: hand the request to the visitor's mail app instead of faking a send.
+  const viaMail = (data: FormData) => {
+    const seme = SEMI[data.get('seme') as Seme]?.evento ?? '';
+    const body = [
+      `Nome: ${data.get('nome')}`,
+      `Contatto: ${data.get('contatto')}`,
+      `Evento: ${seme}`,
+      `Data: ${data.get('data') || 'da definire'}`,
+    ].join('\n');
+    window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(`Richiesta spettacolo: ${seme}`)}&body=${encodeURIComponent(body)}`;
+    wrap.querySelector('[data-done-title]')!.textContent = 'Ho preparato la tua email.';
+    wrap.querySelector('[data-done-text]')!.textContent =
+      'Si è aperta la tua app di posta con la richiesta già scritta: premi invia e ti rispondo al più presto.';
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    error.hidden = true;
+    const data = new FormData(form);
+    submit.disabled = true;
+    submitLabel.textContent = 'Invio in corso…';
+    try {
+      if (form.dataset.configured) {
+        const res = await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(String(res.status));
+      } else {
+        viaMail(data);
+      }
+      form.reset();
+      flip(true);
+    } catch {
+      error.hidden = false;
+    } finally {
+      submit.disabled = false;
+      submitLabel.textContent = 'Invia la richiesta';
+    }
+  });
+
+  wrap.querySelector('[data-again]')!.addEventListener('click', () => flip(false));
+</script>
+
+<style>
+  .contact__head {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--s-6);
+    align-items: end;
+    margin-bottom: clamp(48px, 7vw, 96px);
+  }
+
+  .contact__lead { justify-self: end; display: flex; gap: 8px; }
+  .contact__icon { width: 18px; height: 18px; }
+
+  /* The ticket: chalk stock, a perforated stub, notches cut at the tear line */
+  .ticket { cursor: auto; color-scheme: light; --stub: clamp(260px, 30%, 360px); }
+  .ticket .flip__inner { display: grid; }
+  .ticket .flip__face { position: relative; inset: auto; grid-area: 1 / 1; border-radius: var(--r-panel); }
+  .ticket__face {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--stub);
+    background: var(--chalk);
+    color: var(--ink);
+    box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.9);
+    -webkit-mask:
+      radial-gradient(circle 22px at calc(100% - var(--stub)) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+      radial-gradient(circle 22px at calc(100% - var(--stub)) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+    mask:
+      radial-gradient(circle 22px at calc(100% - var(--stub)) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+      radial-gradient(circle 22px at calc(100% - var(--stub)) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+  }
+  .ticket__form { display: flex; flex-direction: column; gap: var(--s-4); padding: clamp(32px, 4.5vw, 64px); }
+  .ticket__stub {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    padding: clamp(32px, 4vw, 56px) clamp(24px, 3vw, 44px);
+    border-left: 2px dashed rgba(11, 11, 11, 0.22);
+    background: var(--chalk-2);
+    border-radius: 0 var(--r-panel) var(--r-panel) 0;
+  }
+  .ticket__name { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 500; font-stretch: 115%; line-height: 0.95; letter-spacing: -0.03em; }
+  .ticket__name em { font-weight: 250; }
+  .ticket__channels { list-style: none; margin: auto 0 0; padding: 0; border-top: 1px solid var(--line-ink); }
+  .ticket__channels a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 52px;
+    border-bottom: 1px solid var(--line-ink);
+    text-decoration: none;
+    font-size: var(--t-small);
+    overflow-wrap: anywhere;
+    transition: translate var(--d-2) var(--ease-out);
+  }
+  .ticket__channels a:hover { translate: 6px 0; }
+  .ticket__channels :global(.suit) { width: 12px; height: 12px; }
+  .ticket__zone { margin: 0; color: var(--ash-ink); }
+
+  .ticket__suits { border: 0; margin: 0; padding: 0; min-width: 0; }
+  .ticket__suits legend { padding: 0; margin-bottom: var(--s-2); color: var(--ash-ink); }
+  .ticket__suits-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ticket__seme { position: relative; }
+  .ticket__seme input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .ticket__seme-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 20px;
+    border-radius: var(--r-pill);
+    border: 1px solid rgba(11, 11, 11, 0.22);
+    font-size: var(--t-small);
+    pointer-events: none;
+    transition: background var(--d-1), color var(--d-1), border-color var(--d-1);
+  }
+  .ticket__seme-chip :global(.suit) { width: 14px; height: 14px; }
+  .ticket__seme:hover .ticket__seme-chip { border-color: var(--ink); }
+  .ticket__seme input:checked + .ticket__seme-chip { background: var(--ink); color: var(--chalk); border-color: var(--ink); }
+  .ticket__seme input:focus-visible + .ticket__seme-chip { outline: 1px solid var(--ink); outline-offset: 3px; }
+
+  .ticket__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3) var(--s-4); }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field--wide { grid-column: 1 / -1; }
+  .field .label { color: var(--ash-ink); }
+  .field abbr { text-decoration: none; }
+  .field input,
+  .field textarea {
+    font: inherit;
+    color: var(--ink);
+    background: rgba(11, 11, 11, 0.04);
+    border: 1px solid transparent;
+    border-radius: 14px;
+    padding: 14px 16px;
+    min-height: 52px;
+    resize: vertical;
+    caret-color: var(--ink);
+    transition: border-color var(--d-1), background var(--d-1);
+  }
+  .field textarea { border-radius: 18px; }
+  .field textarea::placeholder { color: var(--ash-ink); opacity: 0.85; }
+  .field input:hover,
+  .field textarea:hover { background: rgba(11, 11, 11, 0.06); }
+  .field input:focus-visible,
+  .field textarea:focus-visible { outline: none; border-color: var(--ink); background: transparent; }
+  .field input:user-invalid { border-color: var(--ink); border-style: dashed; }
+  .ticket__submit { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
+  .ticket__error { margin: 0; font-size: var(--t-small); max-width: 46ch; }
+
+  .ticket__done {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 64px 12%;
+    background: var(--panel-2);
+    box-shadow: 0 0 0 1px var(--line) inset;
+    color: var(--chalk);
+    outline: none;
+  }
+  .ticket__done :global(.ticket__done-suit) { width: 52px; height: 52px; margin-bottom: var(--s-4); }
+  .ticket__done-title { margin: 0 0 var(--s-2); font-family: var(--font-display); font-weight: 400; font-stretch: 110%; font-size: clamp(1.8rem, 3.2vw, 2.6rem); line-height: 1.05; letter-spacing: -0.03em; }
+  .ticket__done-text { margin: 0 0 var(--s-4); color: var(--ash); max-width: 38ch; }
+
+  @media (max-width: 960px) {
+    .contact__head { grid-template-columns: 1fr; gap: var(--s-4); }
+    .contact__lead { justify-self: stretch; }
+    .contact__quick { flex: 1; padding: 0 1em; }
+    .ticket__face { grid-template-columns: 1fr; -webkit-mask: none; mask: none; }
+    .ticket__stub { border-left: 0; border-top: 2px dashed rgba(11, 11, 11, 0.22); border-radius: 0 0 var(--r-panel) var(--r-panel); }
+  }
+  /* Phones: WhatsApp and Chiama sit above the form, so the stub would only repeat them */
+  @media (max-width: 760px) {
+    .ticket__stub { display: none; }
+    .ticket__form { padding: 28px 22px 32px; gap: var(--s-3); }
+  }
+  @media (max-width: 520px) {
+    .ticket__grid { grid-template-columns: 1fr; }
+  }
+</style>

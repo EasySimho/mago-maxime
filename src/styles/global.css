@@ -1,0 +1,280 @@
+@import './tokens.css';
+
+:root {
+  color-scheme: dark;
+  accent-color: var(--red);
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scrollbar-color: #333 var(--void);
+}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: clip; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb { background: #2c2c2c; border: 2px solid var(--void); border-radius: 10px; }
+
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--chalk);
+  font-family: var(--font-text);
+  font-size: var(--t-body);
+  line-height: 1.6;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[hidden] { display: none !important; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: 1px; }
+button { font: inherit; color: inherit; }
+h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 400; }
+p { text-wrap: pretty; }
+::selection { background: var(--red); color: var(--chalk); }
+:focus-visible { outline: 1px solid currentColor; outline-offset: 5px; border-radius: 4px; }
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 1001;
+  padding: 12px 20px;
+  border-radius: var(--r-pill);
+  background: var(--chalk);
+  color: var(--ink);
+  font-size: var(--t-small);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform var(--d-1) var(--ease-out);
+}
+.skip-link:focus-visible { transform: none; }
+
+/* Page content lives in one stacking layer under the fixed chrome (nav, menu, booking bar) */
+main { position: relative; z-index: 0; isolation: isolate; }
+
+/* ---------- Layout ---------- */
+.wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ---------- Type roles ---------- */
+.label {
+  font-family: var(--font-text);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+.title {
+  font-family: var(--font-display);
+  font-size: var(--t-title);
+  font-weight: 500;
+  font-stretch: 112%;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+.display {
+  font-family: var(--font-display);
+  font-size: var(--t-display);
+  font-weight: 400;
+  font-stretch: 112%;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+.title em, .display em { font-style: italic; font-weight: 250; }
+.lead { font-size: var(--t-lead); line-height: 1.5; color: var(--ash); max-width: 46ch; margin: 0; }
+.tone-chalk .lead { color: var(--ash-ink); }
+
+/* ---------- Suits ---------- */
+.suit { width: 1em; height: 1em; display: inline-block; flex: none; }
+/* Hearts and diamonds are red, as on every real deck */
+.suit--red { color: var(--red); }
+/* The full stop that closes a heading is a red pip */
+.pip { color: var(--red); }
+
+/* ---------- Buttons: pills ---------- */
+.btn {
+  --bg: var(--chalk);
+  --fg: var(--ink);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9em;
+  min-height: 56px;
+  padding: 0 1.9em;
+  border: 1px solid var(--bg);
+  border-radius: var(--r-pill);
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-text);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color var(--d-2) var(--ease-out), border-color var(--d-2);
+}
+.btn::before {
+  /* a circle rises from below and ends centred on the button; 160% of the width covers its diagonal at any shape */
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 160%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--fg);
+  translate: -50% 0;
+  transition: top var(--d-3) var(--ease-out), translate var(--d-3) var(--ease-out);
+  z-index: -1;
+}
+@media (hover: hover) {
+  .btn:hover { color: var(--bg); }
+  .btn:hover::before { top: 50%; translate: -50% -50%; }
+}
+.btn:active { scale: 0.97; }
+.btn:disabled { opacity: 0.55; cursor: progress; }
+.btn .btn__icon { width: 14px; height: 14px; transition: transform var(--d-2) var(--ease-out); }
+.btn:hover .btn__icon { transform: translateX(3px); }
+.btn--ghost { --bg: transparent; --fg: var(--chalk); color: var(--chalk); border-color: rgba(239, 236, 230, 0.32); }
+@media (hover: hover) { .btn--ghost:hover { color: var(--ink); border-color: var(--chalk); } }
+.tone-chalk .btn { --bg: var(--ink); --fg: var(--chalk); }
+.tone-chalk .btn--ghost { --bg: transparent; --fg: var(--ink); color: var(--ink); border-color: rgba(11, 11, 11, 0.3); }
+@media (hover: hover) { .tone-chalk .btn--ghost:hover { color: var(--chalk); } }
+
+/* Primary actions are ticket stubs: notched ends, a perforation before the arrow stub.
+   They are the only red surface on the page: wherever you are, booking is the red thing. */
+.btn--ticket,
+.tone-chalk .btn--ticket { --bg: var(--red); --fg: var(--chalk); color: var(--chalk); }
+.btn--ticket {
+  border-radius: 14px;
+  padding: 0 0 0 1.8em;
+  gap: 0;
+  -webkit-mask:
+    radial-gradient(circle 7px at 0 50%, transparent 96%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 7px at 100% 50%, transparent 96%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle 7px at 0 50%, transparent 96%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 7px at 100% 50%, transparent 96%, #000) right / 51% 100% no-repeat;
+}
+.btn--ticket .btn__stub {
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+  margin-left: 1.4em;
+  padding: 0 1.3em 0 1.15em;
+  border-left: 1.5px dashed currentColor;
+  opacity: 0.9;
+}
+
+/* ---------- Playing card ---------- */
+.pcard {
+  position: relative;
+  aspect-ratio: 5 / 7;
+  border-radius: var(--r-card);
+  background: var(--chalk);
+  color: var(--ink);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.pcard--dark { background: var(--panel-2); color: var(--chalk); box-shadow: 0 0 0 1px var(--line) inset, 0 24px 48px -20px rgba(0, 0, 0, 0.6); }
+.pcard__corner {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.14em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-stretch: 100%;
+  line-height: 0.9;
+  font-size: clamp(0.95rem, 1.6vw, 1.2rem);
+  z-index: 2;
+}
+.pcard__corner .suit { width: 0.6em; height: 0.6em; }
+.pcard__corner--tl { top: 0.6em; left: 0.6em; }
+.pcard__corner--br { bottom: 0.6em; right: 0.6em; transform: rotate(180deg); }
+
+/* ---------- Flip ---------- */
+.flip { perspective: 1400px; }
+.flip__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform var(--d-3) var(--ease-out);
+}
+.flip__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--r-card);
+}
+.flip__face--front { transform: rotateY(180deg); }
+.flip.is-flipped .flip__inner { transform: rotateY(180deg); }
+.flip:not(.is-flipped) .flip__face--front,
+.flip.is-flipped .flip__face--back { pointer-events: none; }
+
+/* ---------- Acts: stacked rounded panels ---------- */
+.act__anchor { height: 0; scroll-margin-top: 0; }
+.act {
+  position: sticky;
+  top: var(--stick, 0px);
+  padding: 0 var(--inset);
+}
+.act__panel {
+  --dim: 0;
+  position: relative;
+  border-radius: var(--r-panel);
+  overflow: hidden;
+  transform-origin: 50% 30%;
+  box-shadow: var(--shadow-panel);
+}
+.act__panel::after {
+  /* receding into the dark as the next act is laid on top */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--void);
+  opacity: var(--dim);
+  pointer-events: none;
+  border-radius: inherit;
+}
+.tone-dark .act__panel { background: var(--panel); color: var(--chalk); }
+.tone-chalk .act__panel { background: var(--chalk); color: var(--ink); color-scheme: light; }
+.tone-chalk ::selection { background: var(--red); color: var(--chalk); }
+
+/* top padding clears the fixed nav, so no heading ever sits under it */
+.act__body { padding-top: calc(var(--nav-h) + clamp(40px, 7vw, 104px)); padding-bottom: clamp(104px, 13vw, 184px); }
+
+@media (min-width: 761px) { .act__panel { min-height: 100svh; } }
+/* phones: room for the floating booking bar */
+@media (max-width: 760px) { .act__body { padding-bottom: 144px; } }
+
+/* ---------- Dealt cards (diagonal entrance, the one recurring motion) ---------- */
+.js [data-deal]:not(.is-dealt) { opacity: 0; }
+
+/* ---------- Reduced motion: keep states, drop travel ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .js [data-deal]:not(.is-dealt) { opacity: 1; }
+  .flip__inner { transform: none !important; transition: none; }
+  .flip__face { transition: opacity 0.35s linear, visibility 0.35s; }
+  .flip__face--front { transform: none; opacity: 0; visibility: hidden; }
+  .flip.is-flipped .flip__face--front { opacity: 1; visibility: visible; }
+  .flip.is-flipped .flip__face--back { opacity: 0; visibility: hidden; }
+}

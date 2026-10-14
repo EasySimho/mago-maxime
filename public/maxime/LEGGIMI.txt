@@ -1,0 +1,17 @@
+FOTO E VIDEO DI MAXIME
+======================
+Copia qui i file con QUESTI nomi (jpg, jpeg, png o webp vanno tutti bene).
+Il sito li converte da solo in bianco e nero. Dopo averli copiati, riavvia `npm run dev`.
+
+ritratto.jpg   Foto principale in alto. VERTICALE (es. 1200x1600). Maxime a mezzo busto, sfondo scuro.
+mani.jpg       Le sue mani con le carte, da vicino. Verticale o quadrata.
+scena.jpg      Maxime sul palco o tra il pubblico durante uno spettacolo. ORIZZONTALE (es. 1600x1000).
+firma.png      La sua firma: inchiostro nero su sfondo trasparente (oppure firma.svg).
+
+Facoltativo:
+showreel.mp4   Video breve (10-20 s, senza audio, max ~8 MB). Se c'è, parte in automatico in alto al posto del ritratto.
+
+live-1.jpg … live-4.jpg   Galleria "Da vicino, tra gli ospiti" (verticali 4:5).
+
+Le foto attuali sono già convertite in bianco e nero, ritagliate e alleggerite (max ~150 KB).
+Finché un file manca, al suo posto compare un riquadro con scritto il nome del file da aggiungere.

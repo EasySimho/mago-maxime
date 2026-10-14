@@ -1,0 +1,20 @@
+---
+import { SUIT_PATHS, SPIRAL_PATH, type Seme } from '../data/suits';
+
+interface Props {
+  name: Seme | 'spirale';
+  class?: string;
+}
+const { name, class: cls = 'suit' } = Astro.props;
+const red = name === 'cuori' || name === 'quadri';
+---
+
+<svg class:list={[cls, { 'suit--red': red }]} viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+  {
+    name === 'spirale' ? (
+      <path d={SPIRAL_PATH} fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" />
+    ) : (
+      <path d={SUIT_PATHS[name]} fill="currentColor" />
+    )
+  }
+</svg>

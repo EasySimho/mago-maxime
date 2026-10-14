@@ -1,0 +1,64 @@
+/* Il Teatro Buio — design tokens. Every value in the site comes from here. */
+:root {
+  /* Stage & light */
+  --void: #050505;        /* the dark house */
+  --stage: #0a0a0a;
+  --panel: #121212;       /* dark act panels */
+  --panel-2: #1a1a1a;     /* raised surfaces on dark panels */
+  --chalk: #efece6;       /* playing-card stock: chalk panels, cards, light */
+  --chalk-2: #dedad2;     /* raised surfaces on chalk panels */
+  --ink: #0b0b0b;         /* text on chalk */
+  --ash: #95928b;         /* secondary text on dark: 6.3:1 on --panel */
+  --ash-ink: #57554f;     /* secondary text on chalk: 6.4:1 on --chalk */
+  --line: rgba(239, 236, 230, 0.12);
+  --line-ink: rgba(11, 11, 11, 0.14);
+  --light: rgba(255, 252, 244, 1);
+
+  /* The one colour: playing-card red. Hearts, diamonds and the action that books him. */
+  --red: #c8102e;         /* 5:1 with chalk text; 3.4:1 on void (icons, large type only) */
+  --red-deep: #a00c24;
+
+  /* Type */
+  --font-display: 'Archivo Variable', 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-text: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --t-label: 0.72rem;                         /* functional small caps */
+  --t-small: 0.875rem;
+  --t-body: 1.0625rem;
+  --t-lead: clamp(1.15rem, 1.6vw, 1.4rem);
+  --t-title: clamp(2.3rem, 5vw, 4.6rem);      /* act headings */
+  --t-display: clamp(2.8rem, 7.6vw, 7.4rem);  /* manifesto, big statements */
+  --t-hero: clamp(3.4rem, 13.5vw, 14rem);     /* MAXIME only */
+  --track-label: 0.2em;
+
+  /* Space (8pt) */
+  --s-1: 8px;
+  --s-2: 16px;
+  --s-3: 24px;
+  --s-4: 32px;
+  --s-6: 48px;
+  --s-8: 64px;
+  --s-12: 96px;
+  --s-16: 128px;
+  --gutter: clamp(20px, 4.5vw, 64px);
+  --inset: clamp(6px, 0.9vw, 14px);          /* gap between a panel and the stage edge */
+  --max: 1320px;
+  --nav-h: 76px;
+
+  /* Shape: nothing on this site has a sharp corner */
+  --r-panel: clamp(26px, 3.4vw, 48px);
+  --r-card: 18px;
+  --r-card-sm: 12px;
+  --r-pill: 999px;
+
+  /* Depth */
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 24px 48px -20px rgba(0, 0, 0, 0.6);
+  --shadow-panel: 0 -30px 60px -20px rgba(0, 0, 0, 0.8);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --d-1: 0.35s;
+  --d-2: 0.6s;
+  --d-3: 0.9s;
+  --d-4: 1.4s;
+}

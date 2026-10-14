@@ -1,0 +1,64 @@
+---
+/**
+ * A photo of Maxime from public/maxime/<name>.(jpg|jpeg|png|webp), shown in black & white
+ * (the files are already graded to B&W; the filter only guards against a colour file dropped in later).
+ * If the file is not there yet, an honest slot says which file to add.
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props {
+  name: string;
+  alt: string;
+  class?: string;
+  eager?: boolean;
+  /** object-position, to keep Maxime in frame when the slot crops the photo */
+  position?: string;
+  /** another crop (public/maxime/<mobile>.jpg) served to phones, below 900px */
+  mobile?: string;
+}
+const { name, alt, class: cls = '', eager = false, position, mobile } = Astro.props;
+const dir = path.join(process.cwd(), 'public', 'maxime');
+const find = (n: string) => ['jpg', 'jpeg', 'png', 'webp'].map((ext) => `${n}.${ext}`).find((f) => fs.existsSync(path.join(dir, f)));
+const file = find(name);
+const mobileFile = mobile ? find(mobile) : undefined;
+import { url } from '../scripts/url';
+---
+
+{
+  file && mobileFile ? (
+    <picture class="photo__pic">
+      <source media="(max-width: 899px)" srcset={url(`maxime/${mobileFile}`)} />
+      <img class:list={['photo', cls]} src={url(`maxime/${file}`)} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" style={position ? `object-position: ${position}` : undefined} />
+    </picture>
+  ) : file ? (
+    <img class:list={['photo', cls]} src={url(`maxime/${file}`)} alt={alt} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" style={position ? `object-position: ${position}` : undefined} />
+  ) : (
+    <div class:list={['photo', 'photo--slot', cls]} role="img" aria-label={alt}>
+      <span class="photo__hint">Foto in arrivo · {name}.jpg</span>
+    </div>
+  )
+}
+
+<style>
+  .photo__pic { display: contents; }
+  .photo { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); }
+  .photo--slot {
+    position: relative;
+    background:
+      radial-gradient(70% 55% at 50% 38%, #2a2a2a 0%, #141414 55%, #0a0a0a 100%);
+  }
+  .photo__hint {
+    position: absolute;
+    left: 50%;
+    bottom: 16px;
+    translate: -50% 0;
+    padding: 8px 14px;
+    border-radius: var(--r-pill);
+    background: rgba(5, 5, 5, 0.6);
+    color: var(--ash);
+    font-size: var(--t-label);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+</style>

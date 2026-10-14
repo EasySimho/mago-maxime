@@ -1,0 +1,98 @@
+[
+  {
+    "titolo": "Matrimonio in villa",
+    "luogo": "Villa privata, Piemonte",
+    "data": "2026-06-14",
+    "seme": "cuori",
+    "valore": "A",
+    "foto": ""
+  },
+  {
+    "titolo": "Gala aziendale",
+    "luogo": "Palazzo storico, Milano",
+    "data": "2026-05-22",
+    "seme": "quadri",
+    "valore": "K",
+    "foto": ""
+  },
+  {
+    "titolo": "Notte dell'Ipnosi",
+    "luogo": "Teatro cittadino",
+    "data": "2026-04-03",
+    "seme": "fiori",
+    "valore": "Q",
+    "foto": ""
+  },
+  {
+    "titolo": "Close-up al tavolo",
+    "luogo": "Cena privata, Torino",
+    "data": "2026-03-18",
+    "seme": "picche",
+    "valore": "J",
+    "foto": ""
+  },
+  {
+    "titolo": "Festa dei 18 anni",
+    "luogo": "Residenza privata",
+    "data": "2026-02-10",
+    "seme": "cuori",
+    "valore": "10",
+    "foto": ""
+  },
+  {
+    "titolo": "Convention vendite",
+    "luogo": "Centro congressi",
+    "data": "2026-01-25",
+    "seme": "quadri",
+    "valore": "9",
+    "foto": ""
+  },
+  {
+    "titolo": "Il Teatro della Mente",
+    "luogo": "Teatro storico",
+    "data": "2025-12-12",
+    "seme": "fiori",
+    "valore": "8",
+    "foto": ""
+  },
+  {
+    "titolo": "Cocktail di benvenuto",
+    "luogo": "Hotel sul lago",
+    "data": "2025-11-08",
+    "seme": "picche",
+    "valore": "7",
+    "foto": ""
+  },
+  {
+    "titolo": "Anniversario d'oro",
+    "luogo": "Castello, Piemonte",
+    "data": "2025-10-04",
+    "seme": "cuori",
+    "valore": "6",
+    "foto": ""
+  },
+  {
+    "titolo": "Team building",
+    "luogo": "Sede aziendale",
+    "data": "2025-09-19",
+    "seme": "quadri",
+    "valore": "5",
+    "foto": ""
+  },
+  {
+    "titolo": "Illusioni sotto le stelle",
+    "luogo": "Festival estivo",
+    "data": "2025-07-27",
+    "seme": "fiori",
+    "valore": "4",
+    "foto": ""
+  },
+  {
+    "titolo": "Magia tra i tavoli",
+    "luogo": "Ristorante, Langhe",
+    "data": "2025-06-05",
+    "seme": "picche",
+    "valore": "3",
+    "foto": ""
+  }
+]

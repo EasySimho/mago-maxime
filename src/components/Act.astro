@@ -1,0 +1,22 @@
+---
+/** A section of the page: a rounded panel laid over the previous one. */
+import { act as getAct, type ActId } from '../data/acts';
+
+interface Props {
+  id: ActId;
+  tone?: 'dark' | 'chalk';
+  class?: string;
+}
+const { id, tone = 'dark', class: cls = '' } = Astro.props;
+const a = getAct(id);
+---
+
+<!-- Links land on this plain marker, not on the sticky panel (a sticky target can be scrolled to its stuck offset) -->
+<div class="act__anchor" id={id} aria-hidden="true"></div>
+<section class:list={['act', `act--${id}`, `tone-${tone}`, cls]} data-act={a.name} aria-labelledby={`${id}-title`}>
+  <div class="act__panel">
+    <div class="act__body wrap">
+      <slot />
+    </div>
+  </div>
+</section>

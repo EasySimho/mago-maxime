@@ -1,0 +1,21 @@
+{
+  "nome": "Maxime",
+  "titolo": "Mago · Illusionista · Ipnotista",
+  "claim": "L'impossibile, dal vivo.",
+  "telefono": "+39 333 000 0000",
+  "whatsapp": "393330000000",
+  "email": "info@magomaxime.it",
+  "zona": "Italia e estero",
+  "social": {
+    "instagram": "https://instagram.com/magomaxime",
+    "tiktok": "https://tiktok.com/@magomaxime",
+    "youtube": "https://youtube.com/@magomaxime"
+  },
+  "formEndpoint": "https://formspree.io/f/IL_TUO_ID",
+  "intro": [
+    "Faccio una cosa semplice: ti mostro qualcosa che non può succedere, e succede a un metro da te. Con le carte, con gli oggetti che hai in tasca, a volte con la tua stessa mente.",
+    "Non porto uno spettacolo preconfezionato. Prima di ogni serata voglio sapere chi ci sarà, cosa festeggiate e che atmosfera avete in mente. Poi costruisco i momenti giusti, uno per uno.",
+    "Se a fine serata qualcuno ti chiede «ma come ha fatto?», ho fatto bene il mio lavoro."
+  ],
+  "citazione": "La magia non è ingannare qualcuno. È ricordargli com'è stupirsi."
+}

@@ -1,0 +1,130 @@
+---
+import Act from './Act.astro';
+import Photo from './Photo.astro';
+import Suit from './Suit.astro';
+import site from '../data/site.json';
+import type { Seme } from '../data/suits';
+
+const arti: { s: Seme | 'spirale'; nome: string; testo: string }[] = [
+  { s: 'fiori', nome: 'Magia', testo: 'A un passo da te: carte, monete, gli oggetti che hai in tasca.' },
+  { s: 'quadri', nome: 'Illusionismo', testo: "Per il palco: apparizioni e previsioni che arrivano fino all'ultima fila." },
+  { s: 'spirale', nome: 'Ipnosi', testo: 'Con volontari dal pubblico, sempre nel rispetto di chi partecipa.' },
+];
+
+const live = [
+  { name: 'live-1', alt: `${site.nome} prepara un effetto con le carte a una festa in giardino` },
+  { name: 'live-2', alt: `${site.nome} sorride mentre mostra le carte a un ospite` },
+  { name: 'live-3', alt: `${site.nome} esegue un effetto tra le mani di un'ospite` },
+  { name: 'live-4', alt: `${site.nome} sorride tra gli ospiti dopo un effetto` },
+];
+---
+
+<Act id="spettacolo" tone="dark">
+  <figure class="show__photo" data-deal>
+    <Photo name="scena" alt={`${site.nome} al microfono durante uno spettacolo, con il pubblico seduto alle spalle`} position="20% 8%" />
+  </figure>
+
+  <div class="show">
+    <h2 class="title" id="spettacolo-title">Tre arti,<br /><em>una serata</em><span class="pip">.</span></h2>
+    <!-- A theatre bill: the three arts set large, one line each -->
+    <ul class="bill">
+      {
+        arti.map((a) => (
+          <li class="bill__row">
+            <h3 class="bill__name">
+              <Suit name={a.s} class="suit bill__suit" />
+              {a.nome}
+            </h3>
+            <p class="bill__text">{a.testo}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="live">
+    <h3 class="live__title" id="live-title">Da vicino, <em>tra gli ospiti</em><span class="pip">.</span></h3>
+    <ul class="live__strip" role="list" tabindex="0" aria-labelledby="live-title">
+      {
+        live.map((p) => (
+          <li class="live__item" data-deal>
+            <Photo name={p.name} alt={p.alt} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Act>
+
+<style>
+  .show__photo { margin: 0 0 var(--s-8); aspect-ratio: 4 / 3; border-radius: var(--r-card); overflow: hidden; }
+  .show { display: grid; gap: clamp(40px, 6vw, 80px); }
+  .bill { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .bill__row { display: grid; gap: var(--s-2); padding: clamp(24px, 3.4vw, 44px) 0; border-bottom: 1px solid var(--line); }
+  .bill__name {
+    display: flex;
+    align-items: center;
+    gap: 0.32em;
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 5.4vw, 4.6rem);
+    font-weight: 250;
+    font-stretch: 118%;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  .bill__name :global(.bill__suit) { width: 0.42em; height: 0.42em; color: var(--chalk); }
+  .bill__name :global(.bill__suit.suit--red) { color: var(--red); }
+  .bill__text { margin: 0; max-width: 34ch; color: var(--ash); line-height: 1.55; }
+
+  .live { margin-top: clamp(80px, 11vw, 160px); }
+  .live__title {
+    margin-bottom: var(--s-4);
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 3.4vw, 3rem);
+    font-weight: 500;
+    font-stretch: 112%;
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+  .live__title em { font-style: italic; font-weight: 250; }
+  /* Phones: a row you swipe through, one photo and a bit of the next */
+  .live__strip {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 74%;
+    gap: var(--s-2);
+    margin: 0 calc(var(--gutter) * -1);
+    padding: var(--s-2) var(--gutter) var(--s-4);
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .live__strip::-webkit-scrollbar { display: none; }
+  .live__strip:focus-visible { outline: 1px solid currentColor; outline-offset: 5px; border-radius: var(--r-card); }
+  .live__item {
+    aspect-ratio: 4 / 5;
+    border-radius: var(--r-card);
+    overflow: hidden;
+    scroll-snap-align: start;
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+  }
+  /* laid on the table, not lined up */
+  .live__item:nth-child(odd) { rotate: -1.2deg; }
+  .live__item:nth-child(even) { rotate: 1.4deg; translate: 0 10px; }
+
+  @media (min-width: 900px) {
+    .live__strip { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); margin: 0; padding: 0; overflow: visible; }
+    .live__item:nth-child(even) { translate: 0 28px; }
+  }
+
+  @media (min-width: 1000px) {
+    .bill__row { grid-template-columns: minmax(0, 1fr) minmax(0, 22rem); align-items: center; gap: var(--s-6); }
+  }
+
+  @media (min-width: 900px) {
+    .show__photo { aspect-ratio: 21 / 9; margin-bottom: clamp(72px, 8vw, 120px); }
+  }
+</style>

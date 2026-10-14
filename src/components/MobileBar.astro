@@ -1,0 +1,66 @@
+---
+/** Phones: booking is always one thumb away. Hides on the hero (it has its own CTAs), on the ticket, in the footer and with the menu open. */
+import site from '../data/site.json';
+---
+
+<div class="mbar is-hidden" data-mbar>
+  <a href="#prenota" class="btn btn--ticket mbar__book">
+    Prenota
+    <span class="btn__stub" aria-hidden="true">
+      <svg class="btn__icon" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+    </span>
+  </a>
+  <a href={`https://wa.me/${site.whatsapp}`} class="mbar__chat" target="_blank" rel="noopener" aria-label="Scrivimi su WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5 5.3 15A8 8 0 1 1 9 18.7Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path></svg>
+  </a>
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-mbar]')!;
+  const hideOn = ['#sipario', '.act--prenota', 'footer'].map((s) => document.querySelector(s)).filter(Boolean) as Element[];
+  const inView = new Set<Element>();
+  const sync = () => bar.classList.toggle('is-hidden', inView.size > 0 || document.documentElement.classList.contains('menu-open'));
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => (e.isIntersecting ? inView.add(e.target) : inView.delete(e.target)));
+      sync();
+    },
+    { rootMargin: '0px 0px -35% 0px' },
+  );
+  hideOn.forEach((el) => io.observe(el));
+  new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+</script>
+
+<style>
+  .mbar { display: none; }
+  @media (max-width: 760px) {
+    .mbar {
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: calc(12px + env(safe-area-inset-bottom));
+      z-index: 180;
+      display: flex;
+      gap: 8px;
+      padding: 6px;
+      border-radius: 22px;
+      background: var(--void);
+      box-shadow: 0 0 0 1px rgba(239, 236, 230, 0.16) inset, 0 18px 40px -12px rgba(0, 0, 0, 0.8);
+      transition: translate var(--d-2) var(--ease-out), opacity var(--d-2);
+    }
+    .mbar:global(.is-hidden) { translate: 0 140%; opacity: 0; pointer-events: none; }
+    .mbar__book { flex: 1; min-height: 52px; font-size: 0.78rem; letter-spacing: 0.1em; justify-content: space-between; }
+    .mbar__chat {
+      flex: none;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      border: 1px solid rgba(239, 236, 230, 0.3);
+      color: var(--chalk);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mbar__chat svg { width: 22px; height: 22px; }
+  }
+</style>

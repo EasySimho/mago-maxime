@@ -1,0 +1,66 @@
+---
+import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource-variable/archivo/wdth-italic.css';
+import '@fontsource-variable/geist';
+import '../styles/global.css';
+import site from '../data/site.json';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import MobileBar from '../components/MobileBar.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `Mago ${site.nome} · ${site.titolo}`,
+  description = `${site.nome}: spettacoli di magia, illusionismo e ipnosi per matrimoni, eventi aziendali, teatri e feste private. ${site.claim}`,
+} = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: `Mago ${site.nome}`,
+  jobTitle: site.titolo,
+  email: site.email,
+  telephone: site.telefono,
+  url: Astro.site?.toString(),
+  sameAs: Object.values(site.social),
+};
+import { url } from '../scripts/url';
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#050505" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="it_IT" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body>
+    <a href="#contenuto" class="skip-link">Vai al contenuto</a>
+
+    <Nav />
+    <main id="contenuto">
+      <slot />
+    </main>
+    <Footer />
+    <MobileBar />
+
+    <script>
+      import { initMotion } from '../scripts/motion';
+      initMotion();
+    </script>
+  </body>
+</html>

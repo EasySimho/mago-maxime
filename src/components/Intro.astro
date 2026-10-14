@@ -1,0 +1,59 @@
+---
+import site from '../data/site.json';
+import Act from './Act.astro';
+import Photo from './Photo.astro';
+import Signature from './Signature.astro';
+---
+
+<Act id="io" tone="chalk">
+  <div class="io">
+    <div class="io__text">
+      <h2 class="title" id="io-title">Ciao, sono <em>{site.nome}</em><span class="pip">.</span></h2>
+      {site.intro.map((p) => <p class="io__p">{p}</p>)}
+      <Signature class="io__sig" />
+    </div>
+    <figure class="io__photo" data-deal>
+      <Photo name="mani" alt={`Le mani di ${site.nome} con un mazzo di carte`} />
+    </figure>
+  </div>
+
+  <blockquote class="io__quote">
+    <p>{site.citazione}</p>
+  </blockquote>
+</Act>
+
+<style>
+  /* Phones: one column, the hands photo breaks the text after the first paragraph */
+  .io { display: grid; }
+  .io__text { display: contents; }
+  .io__text > :global(*) { order: 3; }
+  .io__text > .title { order: 0; }
+  .io__text > .io__p:first-of-type { order: 1; }
+  .io__photo { order: 2; margin: var(--s-3) 0 var(--s-6) !important; }
+  .io__text .title { margin-bottom: var(--s-6); }
+  .io__p { margin: 0 0 var(--s-3); font-size: var(--t-lead); line-height: 1.6; max-width: 38ch; }
+  .io__p:first-of-type { color: var(--ink); }
+  .io__p + .io__p { color: var(--ash-ink); }
+  :global(.io__sig) { margin-top: var(--s-6); }
+  .io__photo { margin: 0; aspect-ratio: 4 / 5; border-radius: var(--r-card); overflow: hidden; rotate: 2deg; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.5); }
+  .io__quote { margin: clamp(96px, 14vw, 180px) 0 0; }
+  .io__quote p {
+    margin: 0;
+    max-width: 22ch;
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 5vw, 4rem);
+    font-weight: 300;
+    font-style: italic;
+    font-stretch: 105%;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+  }
+  .io__quote p::before { content: '“'; }
+  .io__quote p::after { content: '”'; }
+
+  @media (min-width: 900px) {
+    .io { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: clamp(48px, 7vw, 120px); }
+    .io__text { display: block; }
+    .io__photo { order: 0; margin: 0 !important; }
+  }
+</style>

@@ -1,0 +1,121 @@
+---
+import Act from './Act.astro';
+import Photo from './Photo.astro';
+import { SEMI, ORDINE } from '../data/semi';
+import site from '../data/site.json';
+import type { Seme } from '../data/suits';
+
+/** One real photo per kind of evening (public/maxime/evento-<seme>.jpg) */
+const ALT: Record<Seme, string> = {
+  cuori: `${site.nome} fa scegliere una carta a un'ospite elegante`,
+  quadri: `${site.nome} al tavolo con gli ospiti durante una cena di gala`,
+  fiori: `${site.nome} al microfono sul palco`,
+  picche: `Le mani di ${site.nome} con il mazzo, a un passo da un'ospite`,
+};
+---
+
+<Act id="eventi" tone="chalk">
+  <header class="fy__head">
+    <h2 class="title" id="eventi-title">Per il tuo <em>evento</em><span class="pip">.</span></h2>
+  </header>
+
+  <ul class="fy">
+    {
+      ORDINE.map((k) => (
+        <li class="fy__item" data-deal>
+          <a href="#prenota" class="fy__card" data-pick-seme={k}>
+            <span class="fy__media">
+              <Photo name={`evento-${k}`} mobile={`evento-${k}-largo`} alt={ALT[k]} />
+              <span class="fy__name">
+                {SEMI[k].evento}
+                <svg class="fy__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg>
+              </span>
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Act>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('[data-pick-seme]').forEach((a) =>
+    a.addEventListener('click', () => {
+      const input = document.querySelector<HTMLInputElement>(`input[name="seme"][value="${a.dataset.pickSeme}"]`);
+      if (input) input.checked = true;
+    }),
+  );
+</script>
+
+<style>
+  .fy__head { margin-bottom: clamp(40px, 6vw, 80px); }
+
+  /* Phones: one per row, landscape */
+  .fy {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .fy__card {
+    display: block;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+
+  /* The photo carries the name, like the face of a card carries its value */
+  .fy__media {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 2;
+    border-radius: var(--r-card);
+    overflow: hidden;
+    background: var(--ink);
+    color: var(--chalk);
+    box-shadow: 0 24px 40px -24px rgba(0, 0, 0, 0.6);
+  }
+  .fy__media :global(.photo) { transition: scale 1.2s var(--ease-out); }
+  .fy__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(5, 5, 5, 0.88) 0%, rgba(5, 5, 5, 0.45) 34%, rgba(5, 5, 5, 0) 58%);
+    pointer-events: none;
+  }
+
+  .fy__name {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--s-1);
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 1.6vw, 1.45rem);
+    font-weight: 500;
+    font-stretch: 110%;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .fy__arrow { flex: none; width: 15px; height: 15px; margin-bottom: 0.2em; transition: translate var(--d-2) var(--ease-out); }
+
+  .fy__card:active .fy__media { scale: 0.98; }
+  .fy__card:focus-visible .fy__media { outline: 2px solid var(--red); outline-offset: 4px; }
+  @media (hover: hover) {
+    .fy__card:hover .fy__media :global(.photo) { scale: 1.05; }
+    .fy__card:hover .fy__arrow { translate: 4px 0; }
+  }
+
+  @media (min-width: 900px) {
+    .fy { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
+    .fy__media { aspect-ratio: 4 / 5; }
+    .fy__name { left: 20px; right: 20px; bottom: 20px; font-size: clamp(1.05rem, 1.6vw, 1.45rem); }
+  }
+</style>

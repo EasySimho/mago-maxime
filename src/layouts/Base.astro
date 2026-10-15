@@ -15,7 +15,7 @@ interface Props {
 
 const {
   title = `Mago ${site.nome} · ${site.titolo}`,
-  description = `${site.nome}: spettacoli di magia, illusionismo e ipnosi per matrimoni, eventi aziendali, teatri e feste private. ${site.claim}`,
+  description = `${site.nome}: spettacoli di magia, illusionismo e ipnosi per matrimoni, eventi aziendali, teatri e feste private. ${site.claim.join(' · ')}.`,
 } = Astro.props;
 
 const schema = {

@@ -5,27 +5,37 @@ import Act from './Act.astro';
 import Suit from './Suit.astro';
 
 const configured = !site.formEndpoint.includes('IL_TUO_ID');
+const tel = `tel:${site.telefono.replace(/\s/g, '')}`;
 const canali = [
   { s: 'picche', label: 'WhatsApp', href: `https://wa.me/${site.whatsapp}`, ext: true },
-  { s: 'cuori', label: site.telefono, href: `tel:${site.telefono.replace(/\s/g, '')}` },
+  { s: 'cuori', label: site.telefono, href: tel },
   { s: 'fiori', label: site.email, href: `mailto:${site.email}` },
-  { s: 'quadri', label: 'Instagram', href: site.social.instagram, ext: true },
+  { s: 'quadri', label: `Instagram ${site.instagramNome}`, href: site.social.instagram, ext: true },
 ] as const;
 ---
 
 <Act id="prenota" tone="dark">
   <header class="contact__head">
     <h2 class="title" id="prenota-title">Raccontami<br />la tua <em>serata</em><span class="pip">.</span></h2>
-    <!-- The fastest ways first: no form at all -->
+    <!-- The phone comes first: one tap and you are talking to him -->
     <div class="contact__lead">
-      <a href={`https://wa.me/${site.whatsapp}`} class="btn btn--ghost contact__quick" target="_blank" rel="noopener">
-        <svg class="contact__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5 5.3 15A8 8 0 1 1 9 18.7Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path></svg>
-        WhatsApp
+      <a href={tel} class="contact__phone">
+        <span class="label contact__phone-label">Chiamami</span>
+        <span class="contact__number">
+          <svg class="contact__phone-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16.5 16.5 0 0 1 4.5 5.5a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+          {site.telefono}
+        </span>
       </a>
-      <a href={`tel:${site.telefono.replace(/\s/g, '')}`} class="btn btn--ghost contact__quick">
-        <svg class="contact__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16.5 16.5 0 0 1 4.5 5.5a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path></svg>
-        Chiama
-      </a>
+      <div class="contact__quick-row">
+        <a href={`https://wa.me/${site.whatsapp}`} class="btn btn--ghost contact__quick" target="_blank" rel="noopener">
+          <svg class="contact__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5 5.3 15A8 8 0 1 1 9 18.7Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path></svg>
+          WhatsApp
+        </a>
+        <a href={site.social.instagram} class="btn btn--ghost contact__quick" target="_blank" rel="noopener">
+          <svg class="contact__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"></rect><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.5"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"></circle></svg>
+          Instagram
+        </a>
+      </div>
     </div>
   </header>
 
@@ -177,7 +187,24 @@ const canali = [
     margin-bottom: clamp(48px, 7vw, 96px);
   }
 
-  .contact__lead { justify-self: end; display: flex; gap: 8px; }
+  .contact__lead { justify-self: end; display: grid; gap: var(--s-3); }
+  .contact__phone { display: grid; gap: 6px; text-decoration: none; }
+  .contact__phone-label { color: var(--ash); }
+  .contact__number {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 3.4vw, 2.8rem);
+    font-weight: 500;
+    font-stretch: 105%;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .contact__phone-icon { width: 0.8em; height: 0.8em; color: var(--red); flex: none; }
+  .contact__phone:hover .contact__number { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.18em; text-decoration-color: var(--red); }
+  .contact__quick-row { display: flex; gap: 8px; }
   .contact__icon { width: 18px; height: 18px; }
 
   /* The ticket: chalk stock, a perforated stub, notches cut at the tear line */
@@ -296,6 +323,7 @@ const canali = [
     .contact__head { grid-template-columns: 1fr; gap: var(--s-4); }
     .contact__lead { justify-self: stretch; }
     .contact__quick { flex: 1; padding: 0 1em; }
+    .contact__number { font-size: clamp(1.7rem, 8.4vw, 2.4rem); }
     .ticket__face { grid-template-columns: 1fr; -webkit-mask: none; mask: none; }
     .ticket__stub { border-left: 0; border-top: 2px dashed rgba(11, 11, 11, 0.22); border-radius: 0 0 var(--r-panel) var(--r-panel); }
   }

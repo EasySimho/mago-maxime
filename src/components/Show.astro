@@ -7,15 +7,16 @@ import type { Seme } from '../data/suits';
 
 const arti: { s: Seme | 'spirale'; nome: string; testo: string }[] = [
   { s: 'fiori', nome: 'Magia', testo: 'A un passo da te: carte, monete, gli oggetti che hai in tasca.' },
-  { s: 'quadri', nome: 'Illusionismo', testo: "Per il palco: apparizioni e previsioni che arrivano fino all'ultima fila." },
-  { s: 'spirale', nome: 'Ipnosi', testo: 'Con volontari dal pubblico, sempre nel rispetto di chi partecipa.' },
+  { s: 'quadri', nome: 'Illusionismo', testo: "Per il palco: spettacolo pensato per il grande pubblico, apparizioni e previsioni che arrivano fino all'ultima fila." },
+  { s: 'spirale', nome: 'Ipnosi', testo: 'Esclusiva. Per gli amanti della mente con la sua complessità e profondità.' },
 ];
 
 const live = [
   { name: 'live-1', alt: `${site.nome} prepara un effetto con le carte a una festa in giardino` },
   { name: 'live-2', alt: `${site.nome} sorride mentre mostra le carte a un ospite` },
   { name: 'live-3', alt: `${site.nome} esegue un effetto tra le mani di un'ospite` },
-  { name: 'live-4', alt: `${site.nome} sorride tra gli ospiti dopo un effetto` },
+  { name: 'live-4', alt: `Le mani di ${site.nome} estraggono una carta dal mazzo` },
+  { name: 'live-5', alt: `${site.nome} mostra l'asso di cuori comparso sul suo braccio` },
 ];
 ---
 
@@ -116,7 +117,7 @@ const live = [
   .live__item:nth-child(even) { rotate: 1.4deg; translate: 0 10px; }
 
   @media (min-width: 900px) {
-    .live__strip { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); margin: 0; padding: 0; overflow: visible; }
+    .live__strip { grid-auto-flow: row; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 24px); margin: 0; padding: 0; overflow: visible; }
     .live__item:nth-child(even) { translate: 0 28px; }
   }
 

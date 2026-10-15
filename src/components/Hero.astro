@@ -5,6 +5,7 @@ import site from '../data/site.json';
 import Photo from './Photo.astro';
 
 const reel = fs.existsSync(path.join(process.cwd(), 'public', 'maxime', 'showreel.mp4'));
+const tel = `tel:${site.telefono.replace(/\s/g, '')}`;
 const poster = ['jpg', 'jpeg', 'png', 'webp'].map((e) => `ritratto.${e}`).find((f) => fs.existsSync(path.join(process.cwd(), 'public', 'maxime', f)));
 import { url } from '../scripts/url';
 ---
@@ -25,18 +26,29 @@ import { url } from '../scripts/url';
 
     <div class="hero__text">
       <h1 class="hero__name" id="hero-title"><span class="sr-only">Mago </span>{site.nome}</h1>
-      <p class="hero__claim">{site.claim}</p>
+      <!-- The rule of the three M: each M in card red -->
+      <p class="hero__claim">
+        {
+          site.claim.map((w, i) => (
+            <span class="hero__m">
+              <span class="hero__m1">{w.slice(0, 1)}</span>{w.slice(1)}
+              {i < site.claim.length - 1 && <span class="sr-only"> · </span>}
+            </span>
+          ))
+        }
+      </p>
       <div class="hero__ctas">
-        <a href="#prenota" class="btn btn--ticket">
-          Prenota
+        <a href={tel} class="btn btn--ticket hero__call">
+          <span>Chiama<span class="hero__num"> {site.telefono}</span></span>
           <span class="btn__stub" aria-hidden="true">
-            <svg class="btn__icon" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+            <svg class="btn__icon" viewBox="0 0 24 24"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16.5 16.5 0 0 1 4.5 5.5a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>
           </span>
         </a>
         <a href={`https://wa.me/${site.whatsapp}`} class="btn btn--ghost hero__chat" target="_blank" rel="noopener" aria-label="Scrivimi su WhatsApp">
           <svg class="hero__chat-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5 5.3 15A8 8 0 1 1 9 18.7Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path></svg>
           <span class="hero__chat-label">WhatsApp</span>
         </a>
+        <a href="#prenota" class="btn btn--ghost hero__book">Richiedi un preventivo</a>
       </div>
     </div>
   </div>
@@ -87,29 +99,40 @@ import { url } from '../scripts/url';
     letter-spacing: -0.03em;
     text-transform: uppercase;
   }
+  /* The three words stacked, large, like a bill of the evening */
   .hero__claim {
-    margin: var(--s-2) 0 var(--s-4);
+    display: grid;
+    margin: var(--s-3) 0 var(--s-4);
     font-family: var(--font-display);
-    font-style: italic;
-    font-weight: 300;
-    font-size: var(--t-lead);
+    font-size: clamp(1.9rem, 9vw, 2.6rem);
+    font-weight: 500;
+    font-stretch: 115%;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
   }
+  .hero__m1 { color: var(--red); }
+  .hero__num { display: none; }
   /* Phones: the red ticket takes the row, WhatsApp sits beside it as a square key */
   .hero__ctas { display: flex; gap: 8px; }
   .hero__ctas .btn--ticket { flex: 1; justify-content: space-between; }
   .hero__chat { flex: none; width: 56px; padding: 0; border-radius: 16px; }
   .hero__chat-icon { width: 22px; height: 22px; }
   .hero__chat-label { display: none; }
+  .hero__book { display: none; }
 
   @media (min-width: 900px) {
     .hero__media { left: auto; width: 50%; }
     .hero__media::after { background: linear-gradient(to right, var(--void) 0%, rgba(5, 5, 5, 0) 35%); }
     .hero__text { top: 0; right: 50%; display: flex; flex-direction: column; justify-content: center; padding: var(--nav-h) var(--gutter) 0; }
     .hero__name { font-size: clamp(4rem, 9vw, 9rem); }
+    .hero__claim { font-size: clamp(2.2rem, 3.4vw, 3.4rem); }
+    .hero__num { display: inline; }
     .hero__ctas { flex-wrap: wrap; gap: 12px; }
     .hero__ctas .btn--ticket { flex: none; }
     .hero__chat { width: auto; padding: 0 1.9em; border-radius: var(--r-pill); }
     .hero__chat-icon { display: none; }
     .hero__chat-label { display: inline; }
+    .hero__book { display: inline-flex; }
   }
 </style>

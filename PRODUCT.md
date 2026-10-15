@@ -16,10 +16,12 @@ web
 Sito vetrina di Maxime, mago, illusionista e ipnotista. Deve far capire in pochi secondi che tipo di artista è, mostrare le tre arti (magia, illusionismo, ipnosi/mentalismo) e i tipi di evento, e portare il visitatore a una richiesta di preventivo (form, WhatsApp, telefono, email). Successo = richieste di contatto qualificate.
 
 ## Positioning
+Regola delle 3 M, in evidenza in apertura: **Magia · Meraviglia · Memoria**.
+
 Un solo artista che unisce magia da vicino, grandi illusioni e ipnosi/mentalismo, con spettacoli costruiti su misura per ogni evento. Il sito stesso deve "fare un effetto" (es. il trucco "Pensa a una carta"), non solo descriverlo.
 
 ## Operating Context
-- Contatto: form (Formspree da configurare, oggi fallback su email), WhatsApp, telefono, email, Instagram/TikTok/YouTube.
+- Contatto: **il telefono diretto ha la priorità** (pulsante Chiama in apertura e nella barra su telefono, numero grande in Prenota), poi WhatsApp, poi il modulo diviso per semi. Instagram è un canale fondamentale e va reso ben visibile. Numero, WhatsApp, email e profili social in `site.json` sono ancora SEGNAPOSTO.
 - Tipi di evento mappati sui semi delle carte: ♥ matrimoni e feste private, ♦ aziende e gala, ♣ teatro e spettacoli, ♠ close-up / magia da tavolo.
 - Zona: Italia ed estero.
 
@@ -31,7 +33,7 @@ Un solo artista che unisce magia da vicino, grandi illusioni e ipnosi/mentalismo
 ## Brand Commitments
 - Bianco e nero (grigi e luce ammessi) più un solo colore: il rosso delle carte da gioco, solo per cuori/quadri, il pulsante Prenota e il punto rosso che chiude i titoli (richiesta dell'utente, ottobre 2026).
 - Immaginario: magia, carte da gioco e i quattro semi, la mente/ipnosi, il palcoscenico.
-- Fotografie solo vere, di Maxime, in bianco e nero (`public/maxime/`): niente foto stock o generate.
+- Fotografie solo vere, di Maxime (`public/maxime/`), **a colori** quasi ovunque perché la sua magia è giocosa e festosa (richiesta di Maxime, ottobre 2026); in bianco e nero solo la foto di scena in "Lo spettacolo". Niente foto stock o generate.
 - Nome d'arte: "Maxime" / "Mago Maxime".
 
 ## Evidence on Hand

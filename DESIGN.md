@@ -158,7 +158,7 @@ A two-material palette: void-black stage and chalk card stock, with ash greys fo
 - **Card Red** (red, #c8102e): the red of a real deck. It has exactly three jobs: hearts and diamonds (every `Suit` named cuori/quadri renders red), the primary ticket buttons (Prenota, Invia: red with chalk text, 5:1), and the red full stop (`<span class="pip">.</span>`) that closes each section heading. Text selection and `accent-color` follow it. Red on void is 3.4:1, so it is never used for body text on dark.
 
 ### Named Rules
-**The One Red Rule.** Red means "card", "book him" or "the curtain" (the menu's velvet drapes, a darker red family #3a0510–#a3162b). Never use it for decoration, borders, backgrounds of sections or body copy; if a new element wants red, it must be a heart/diamond or the booking action.
+**The One Red Rule.** In the interface (photos carry their own colour), red means "card", "book him" or "the curtain" (the menu's velvet drapes, a darker red family #3a0510–#a3162b). Never use it for decoration, borders, backgrounds of sections or body copy; if a new element wants red, it must be a heart/diamond or the booking action.
 
 **The Light Is Not A Colour Rule.** The follow-spot, house glow and beam are translucent warm-white over the void (`rgba(255, 252, 244, …)` at 0.02–0.11). Never tint light, never add an accent hue.
 
@@ -279,27 +279,37 @@ Every corner is rounded:
 - **Disabled submit:** 55% opacity with a progress cursor and an "Invio in corso…" label.
 
 ### Navigation
-- **Logo: the signature.** "Maxime" in a pen-signature hand with an underline swash (`src/components/Firma.astro`, pure SVG paths outlined from Herr Von Muellerhoff, SIL OFL), no capsule. It is drawn left to right as the page opens (1.5s clip reveal). It reads the first painted background beneath it and switches between chalk (dark ground, with a dark halo) and ink (light ground, with a chalk halo) so whatever scrolls under it never cuts the strokes. On phones (≤760px) it leaves the corner once the hero is passed; with the menu open it leaves the corner on every size and appears instead, large and chalk, on the closed curtain above the sections. The Menu control keeps its opaque void capsule.
+- **Logo: the signature.** "Mago Maxime" (nav and menu; plain "Maxime" as the signature under Chi sono) in a pen-signature hand with an underline swash (`src/components/Firma.astro`, pure SVG paths outlined from Herr Von Muellerhoff, SIL OFL), no capsule. It is drawn left to right as the page opens (1.5s clip reveal). It reads the first painted background beneath it and switches between chalk (dark ground, with a dark halo) and ink (light ground, with a chalk halo) so whatever scrolls under it never cuts the strokes. On phones (≤760px) it leaves the corner once the hero is passed; with the menu open it leaves the corner on every size and appears instead, large and chalk, on the closed curtain above the sections. The Menu control keeps its opaque void capsule.
 - "Prenota" is a red ticket stub. It is hidden below 560px; the menu stays.
 - **Menu: the stage curtain.** Opening it, two red velvet drapes (vertical folds, shadowed creases, light from above) slide in from the sides and unfurl until they meet: fast then settling (0.75s expo-out). Closing is the reverse feel: they part slowly, then whip away (0.65s ease-in). The sections are then written on the closed curtain in chalk Archivo, centred, with WhatsApp, email and Instagram below. Picking a section jumps the page behind the closed curtain, then the drapes part on that scene. Escape closes it, scroll is locked, the red nav ticket hides while it is open, and reduced motion swaps the movement for a fade.
 
 ### Booking (Prenota)
-- Under the heading, two ghost pills side by side: WhatsApp and Chiama (tel:), the ways to book without a form.
+- Under the heading, the phone first: "Chiamami" and the number set large (tel:, red phone glyph), then WhatsApp and Instagram pills side by side.
 - The ticket form asks only: event type (four suit chips), Nome*, Data dell'evento, Telefono o email* (one field, validated as a phone number or an email). No message field.
 - Phones (≤760px): the contact stub is hidden, since WhatsApp and Chiama already sit above the form; the form padding tightens. Wider screens keep the stub with name, channels and zone.
 
+### Hero
+- MAXIME (wordmark), then the rule of the three M stacked: MAGIA / MERAVIGLIA / MEMORIA in uppercase Archivo (500, 115% width, 1.9–3.4rem), each initial M in card red.
+- Actions: the red ticket **Chiama** (tel:, the number shown from 900px), WhatsApp (square key on phones, pill on desktop) and, on desktop only, a ghost pill "Richiedi un preventivo" to the form.
+
+### Chi sono
+- Title "Tu credi nella *magia*?" with a red question mark; his paragraph with the words he wrote in capitals set as uppercase semibold; on the side the hands photo, "Non esibisco uno spettacolo preconfezionato…", his signature; then the quote with "— Maxime".
+
+### Instagram
+- A block of its own in the footer (red Instagram glyph, "Seguimi su Instagram", the handle large) plus an Instagram pill beside WhatsApp in Prenota and in the contact stub.
+
 ### Footer
-- One last photo of Maxime on stage (`saluto.jpg` landscape, `saluto-telefono.jpg` 4:5 via `Photo`'s `mobile` prop) with "Ci vediamo alla prossima serata." and the red Prenota ticket.
+- One last photo of Maxime laughing among the guests (`saluto.jpg` landscape, `saluto-telefono.jpg` 4:5 via `Photo`'s `mobile` prop) with "Ci vediamo alla prossima serata." and the red Prenota ticket.
 - Phones: a 4:5 rounded card, words and ticket over a bottom gradient. ≥900px: words and ticket on the stage at the left (5fr), the photo at 3:2 on the right (7fr).
-- Below: Instagram, TikTok, YouTube and the © line in ash. No giant wordmark, no suit row.
+- Then the Instagram block, then Instagram, TikTok, YouTube and the © line in ash. No giant wordmark, no suit row.
 
 ### Mobile Booking Bar
-- Phones only (≤ 760px): a void capsule (22px radius) floating 12px above the bottom safe area, holding a full-width red ticket "Prenota" and a 52px WhatsApp button. It hides on the hero, the ticket act, the footer and when the menu is open.
+- Phones only (≤ 760px): a void capsule (22px radius) floating 12px above the bottom safe area, holding a full-width red ticket "Chiama" (tel:) and a 52px WhatsApp button. It hides on the hero (measured by scroll, since the hero is a sticky panel), on the booking act, the footer and when the menu is open.
 
 ### Photo slots
 - `public/maxime/ritratto|mani|scena.(jpg|png|webp)` render in grayscale. An optional `showreel.mp4` replaces the hero portrait. A missing file shows a dark slot naming the file to add.
-- The files are pre-graded to black and white (channel mix, S-curve, vignette; the hero background is darkened through a subject mask), so CSS only applies `grayscale(1)` as a guard. `Photo` takes an optional `position` (object-position) to keep Maxime in frame on phone and desktop crops.
-- **Live gallery** (end of Lo spettacolo): `live-1…4` at 4:5, rounded 18px, tilted ±1.2–1.4° like cards on the table. Phones swipe through a scroll-snap row; desktop shows four columns with the even ones dropped.
+- The photos are in **colour** (warm, gently contrasted, saturation +12%, soft vignette; the hero background is darkened through a subject mask). Only the stage photo in Lo spettacolo (`scena.jpg`) is graded black and white. CSS applies no filter. `Photo` takes an optional `position` (object-position) to keep Maxime in frame on phone and desktop crops.
+- **Live gallery** (end of Lo spettacolo): `live-1…5` at 4:5 (five columns on desktop), rounded 18px, tilted ±1.2–1.4° like cards on the table. Phones swipe through a scroll-snap row; desktop shows four columns with the even ones dropped.
 
 ### Theatre bill (Lo spettacolo)
 - The three arts are set as a playbill: each name in thin, expanded, uppercase Archivo (250, 118% width, clamp 2.1–4.6rem) with its small suit glyph, one ash line beside it (≥1000px) or under it. Hairlines between rows. The spiral glyph has 2.5 open turns so it holds at icon size.

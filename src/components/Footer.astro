@@ -8,7 +8,7 @@ const year = new Date().getFullYear();
   <div class="wrap">
     <!-- One last look at him, with the one thing left to do -->
     <div class="footer__card">
-      <Photo name="saluto" mobile="saluto-telefono" alt={`${site.nome} al microfono, in scena davanti al pubblico`} position="60% 0%" />
+      <Photo name="saluto" mobile="saluto-telefono" alt={`${site.nome} ride tra gli ospiti a una festa`} position="40% 20%" />
       <div class="footer__over">
         <p class="footer__line">Ci vediamo<br /><em>alla prossima serata</em><span class="pip">.</span></p>
         <a href="#prenota" class="btn btn--ticket">
@@ -19,6 +19,16 @@ const year = new Date().getFullYear();
         </a>
       </div>
     </div>
+
+    <!-- Instagram is where people get to know him: give it a line of its own -->
+    <a href={site.social.instagram} class="footer__insta" target="_blank" rel="noopener">
+      <svg class="footer__insta-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.4"></rect><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.4"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"></circle></svg>
+      <span class="footer__insta-text">
+        <span class="label">Seguimi su Instagram</span>
+        <span class="footer__insta-name">{site.instagramNome}</span>
+      </span>
+      <svg class="footer__insta-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+    </a>
 
     <div class="footer__bottom">
       <ul class="footer__social">
@@ -71,6 +81,36 @@ const year = new Date().getFullYear();
   .footer__line em { font-weight: 250; }
   .footer__over .btn { min-width: 200px; justify-content: space-between; }
 
+  .footer__insta {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-top: var(--s-3);
+    padding: var(--s-3) var(--s-3);
+    border-radius: var(--r-card);
+    background: var(--panel);
+    box-shadow: 0 0 0 1px var(--line) inset;
+    text-decoration: none;
+    transition: background var(--d-2) var(--ease-out);
+  }
+  .footer__insta-icon { width: 36px; height: 36px; flex: none; color: var(--red); }
+  .footer__insta-text { display: grid; gap: 4px; flex: 1; min-width: 0; }
+  .footer__insta-text .label { color: var(--ash); }
+  .footer__insta-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    font-weight: 500;
+    font-stretch: 110%;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+  .footer__insta-arrow { width: 18px; height: 18px; flex: none; transition: translate var(--d-2) var(--ease-out); }
+  @media (hover: hover) {
+    .footer__insta:hover { background: var(--panel-2); }
+    .footer__insta:hover .footer__insta-arrow { translate: 4px 0; }
+  }
+
   .footer__bottom {
     display: flex;
     flex-wrap: wrap;
@@ -111,6 +151,36 @@ const year = new Date().getFullYear();
     .footer__over { position: static; grid-column: 1; grid-row: 1; padding: 0 0 var(--s-2); }
   }
   @media (max-width: 760px) {
-    .footer__bottom { justify-content: center; text-align: center; }
+    .footer__insta {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-top: var(--s-3);
+    padding: var(--s-3) var(--s-3);
+    border-radius: var(--r-card);
+    background: var(--panel);
+    box-shadow: 0 0 0 1px var(--line) inset;
+    text-decoration: none;
+    transition: background var(--d-2) var(--ease-out);
+  }
+  .footer__insta-icon { width: 36px; height: 36px; flex: none; color: var(--red); }
+  .footer__insta-text { display: grid; gap: 4px; flex: 1; min-width: 0; }
+  .footer__insta-text .label { color: var(--ash); }
+  .footer__insta-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    font-weight: 500;
+    font-stretch: 110%;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+  .footer__insta-arrow { width: 18px; height: 18px; flex: none; transition: translate var(--d-2) var(--ease-out); }
+  @media (hover: hover) {
+    .footer__insta:hover { background: var(--panel-2); }
+    .footer__insta:hover .footer__insta-arrow { translate: 4px 0; }
+  }
+
+  .footer__bottom { justify-content: center; text-align: center; }
   }
 </style>

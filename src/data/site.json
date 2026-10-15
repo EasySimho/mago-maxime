@@ -1,7 +1,12 @@
 {
+  "_nota": "SEGNAPOSTO da sostituire con i dati reali: telefono, whatsapp, email, social.instagram/tiktok/youtube, instagramNome, formEndpoint.",
   "nome": "Maxime",
   "titolo": "Mago · Illusionista · Ipnotista",
-  "claim": "L'impossibile, dal vivo.",
+  "claim": [
+    "Magia",
+    "Meraviglia",
+    "Memoria"
+  ],
   "telefono": "+39 333 000 0000",
   "whatsapp": "393330000000",
   "email": "info@magomaxime.it",
@@ -11,11 +16,10 @@
     "tiktok": "https://tiktok.com/@magomaxime",
     "youtube": "https://youtube.com/@magomaxime"
   },
+  "instagramNome": "@magomaxime",
   "formEndpoint": "https://formspree.io/f/IL_TUO_ID",
-  "intro": [
-    "Faccio una cosa semplice: ti mostro qualcosa che non può succedere, e succede a un metro da te. Con le carte, con gli oggetti che hai in tasca, a volte con la tua stessa mente.",
-    "Non porto uno spettacolo preconfezionato. Prima di ogni serata voglio sapere chi ci sarà, cosa festeggiate e che atmosfera avete in mente. Poi costruisco i momenti giusti, uno per uno.",
-    "Se a fine serata qualcuno ti chiede «ma come ha fatto?», ho fatto bene il mio lavoro."
-  ],
-  "citazione": "La magia non è ingannare qualcuno. È ricordargli com'è stupirsi."
+  "domanda": "Tu credi nella magia?",
+  "intro": "Per me la magia non è performare un semplice gioco di prestigio, ma piuttosto saper generare MERAVIGLIA, creare CONNESSIONI tra le persone e soprattutto EMOZIONARE, lasciando un RICORDO INDELEBILE.",
+  "serata": "Non esibisco uno spettacolo preconfezionato. Prima di ogni serata voglio sapere chi ci sarà, cosa festeggiate e che atmosfera avete in mente.",
+  "citazione": "Molti pensano che la magia sia un inganno, io credo piuttosto sia la «guida dei grandi sognatori» che tutti abbiamo un po' dimenticato di poter seguire…"
 }

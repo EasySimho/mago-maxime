@@ -1,13 +1,14 @@
 ---
-/** Phones: booking is always one thumb away. Hides on the hero (it has its own CTAs), on the ticket, in the footer and with the menu open. */
+/** Phones: a call is always one thumb away. Hides on the hero (it has its own buttons), on the booking act, in the footer and with the menu open. */
 import site from '../data/site.json';
+const tel = `tel:${site.telefono.replace(/\s/g, '')}`;
 ---
 
 <div class="mbar is-hidden" data-mbar>
-  <a href="#prenota" class="btn btn--ticket mbar__book">
-    Prenota
+  <a href={tel} class="btn btn--ticket mbar__book">
+    Chiama
     <span class="btn__stub" aria-hidden="true">
-      <svg class="btn__icon" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+      <svg class="btn__icon" viewBox="0 0 24 24"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16.5 16.5 0 0 1 4.5 5.5a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>
     </span>
   </a>
   <a href={`https://wa.me/${site.whatsapp}`} class="mbar__chat" target="_blank" rel="noopener" aria-label="Scrivimi su WhatsApp">
@@ -17,9 +18,13 @@ import site from '../data/site.json';
 
 <script>
   const bar = document.querySelector<HTMLElement>('[data-mbar]')!;
-  const hideOn = ['#sipario', '.act--prenota', 'footer'].map((s) => document.querySelector(s)).filter(Boolean) as Element[];
+  // The hero is a sticky panel that stays under the others, so it is measured by scroll, not observed
+  const hero = document.querySelector<HTMLElement>('#sipario');
+  const onHero = () => !!hero && scrollY < hero.offsetHeight * 0.85;
+  const hideOn = ['.act--prenota', 'footer'].map((s) => document.querySelector(s)).filter(Boolean) as Element[];
   const inView = new Set<Element>();
-  const sync = () => bar.classList.toggle('is-hidden', inView.size > 0 || document.documentElement.classList.contains('menu-open'));
+  const sync = () => bar.classList.toggle('is-hidden', onHero() || inView.size > 0 || document.documentElement.classList.contains('menu-open'));
+  addEventListener('scroll', sync, { passive: true });
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => (e.isIntersecting ? inView.add(e.target) : inView.delete(e.target)));

@@ -8,7 +8,7 @@ import { url } from '../scripts/url';
 <!-- Logo and controls sit on their own dark capsules, so they hold contrast over any act -->
 <header class="nav" data-nav>
   <a href={url()} class="nav__logo" aria-label="Mago Maxime, home" data-logo>
-    <Firma class="nav__firma" />
+    <Firma mago class="nav__firma" />
   </a>
   <div class="nav__actions">
     <a href="#prenota" class="btn btn--ticket nav__cta is-hidden" data-nav-cta inert>
@@ -29,7 +29,7 @@ import { url } from '../scripts/url';
   <div class="menu__curtain menu__curtain--l" aria-hidden="true"></div>
   <div class="menu__curtain menu__curtain--r" aria-hidden="true"></div>
   <div class="menu__stage">
-    <div class="menu__firma"><Firma label="Maxime" /></div>
+    <div class="menu__firma"><Firma mago label="Mago Maxime" /></div>
     <nav aria-label="Principale">
       <ol class="menu__acts">
         {
@@ -166,7 +166,7 @@ import { url } from '../scripts/url';
   .nav__logo:global(.is-away),
   :global(.menu-open) .nav__logo { opacity: 0; translate: 0 -12px; pointer-events: none; }
   .nav__logo:global(.on-chalk) { color: var(--ink); filter: drop-shadow(0 0 3px var(--chalk)) drop-shadow(0 0 10px var(--chalk)); }
-  .nav__logo :global(.nav__firma) { width: clamp(118px, 11vw, 150px); }
+  .nav__logo :global(.nav__firma) { width: clamp(168px, 16vw, 230px); }
   /* the name is signed as the page opens */
   @media (prefers-reduced-motion: no-preference) {
     .nav__logo :global(.nav__firma) { animation: sign 1.5s cubic-bezier(0.65, 0, 0.35, 1) 0.4s both; }
@@ -257,7 +257,7 @@ import { url } from '../scripts/url';
   }
   :global(.menu-open) .menu__stage { opacity: 1; translate: 0 0; transition: opacity 0.5s var(--ease-out) 0.35s, translate 0.6s var(--ease-out) 0.35s; }
   .menu__firma { display: block; color: var(--chalk); filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.45)); }
-  .menu__firma :global(.firma) { width: clamp(170px, 42vw, 260px); }
+  .menu__firma :global(.firma) { width: clamp(230px, 64vw, 380px); }
   .menu__acts { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.1em; }
   .menu__acts a {
     display: inline-block;

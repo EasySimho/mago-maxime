@@ -3,6 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import site from '../data/site.json';
+import Firma from './Firma.astro';
 
 interface Props {
   class?: string;
@@ -17,12 +18,13 @@ import { url } from '../scripts/url';
   file ? (
     <img class:list={['sig', 'sig--img', cls]} src={url(`maxime/${file}`)} alt={`Firma di ${site.nome}`} />
   ) : (
-    <p class:list={['sig', cls]}>{site.nome}</p>
+    <Firma class={`sig sig--firma ${cls}`} label={`Firma di ${site.nome}`} />
   )
 }
 
 <style>
   .sig { margin: 0; font-family: var(--font-display); font-style: italic; font-weight: 250; font-stretch: 100%; font-size: 2.6rem; line-height: 1; letter-spacing: -0.02em; }
   .sig--img { height: 72px; width: auto; }
+  :global(.sig--firma) { width: 170px; }
   :global(.tone-dark) .sig--img { filter: invert(1); }
 </style>

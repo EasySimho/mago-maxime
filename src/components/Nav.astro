@@ -267,13 +267,12 @@ import { url } from '../scripts/url';
     font-size: clamp(1.8rem, min(8vw, 7vh), 4.6rem);
     font-weight: 500;
     white-space: nowrap;
-    font-stretch: 112%;
     line-height: 1.08;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
     text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
-    transition: font-weight var(--d-2) var(--ease-out);
+    transition: font-weight var(--d-2) var(--ease-out), font-style var(--d-2) var(--ease-out);
   }
-  .menu__acts a:hover { font-style: italic; font-weight: 250; }
+  .menu__acts a:hover { font-style: italic; font-weight: 350; }
   .menu__foot { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 28px; }
   .menu__foot a { min-height: 44px; display: inline-flex; align-items: center; color: rgba(239, 236, 230, 0.82); text-decoration: none; font-size: var(--t-small); }
   .menu__foot a:hover { color: var(--chalk); text-decoration: underline; }

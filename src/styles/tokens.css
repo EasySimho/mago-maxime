@@ -19,7 +19,7 @@
   --red-deep: #a00c24;
 
   /* Type */
-  --font-display: 'Archivo Variable', 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
   --font-text: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
   --t-label: 0.72rem;                         /* functional small caps */
   --t-small: 0.875rem;

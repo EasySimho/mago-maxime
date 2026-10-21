@@ -15,26 +15,23 @@ colors:
   red-deep: "#a00c24"
 typography:
   wordmark:
-    fontFamily: "Archivo Variable, Geist Variable, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(3.4rem, 13.5vw, 14rem)"
-    fontWeight: 200
-    lineHeight: 0.85
+    fontFamily: "Fraunces Variable, Georgia, serif"
+    fontSize: "clamp(3.6rem, 16vw, 12rem)"
+    fontWeight: 600
+    lineHeight: 0.88
     letterSpacing: "-0.02em"
-    fontVariation: "'wdth' 125"
   display:
-    fontFamily: "Archivo Variable, Geist Variable, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Fraunces Variable, Georgia, serif"
     fontSize: "clamp(2.8rem, 7.6vw, 7.4rem)"
     fontWeight: 400
     lineHeight: 0.98
-    letterSpacing: "-0.035em"
-    fontVariation: "'wdth' 112"
+    letterSpacing: "-0.02em"
   headline:
-    fontFamily: "Archivo Variable, Geist Variable, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Fraunces Variable, Georgia, serif"
     fontSize: "clamp(2.3rem, 5vw, 4.6rem)"
     fontWeight: 500
     lineHeight: 0.98
-    letterSpacing: "-0.035em"
-    fontVariation: "'wdth' 112"
+    letterSpacing: "-0.02em"
   lead:
     fontFamily: "Geist Variable, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(1.15rem, 1.6vw, 1.4rem)"
@@ -133,7 +130,7 @@ The page is five sections and nothing more: the hero (his portrait, name and boo
 - Photo-led and personal: every image is of Maxime, shown in black and white (`public/maxime/`), with honest slots until the files arrive.
 - First-person copy in his voice, signed with his own signature.
 - Rounded panels stacked over one another, alternating dark and chalk.
-- Expanded thin Archivo for the name; wide medium Archivo for headings; Geist for reading.
+- Fraunces Variable per il nome e i titoli (caldo, teatrale, ispirato ai caratteri d'inizio Novecento); Geist per la lettura.
 - Generous spacing: every section clears the nav and breathes.
 
 ## Colors
@@ -166,24 +163,25 @@ A two-material palette: void-black stage and chalk card stock, with ash greys fo
 
 ## Typography
 
-**Display Font:** Archivo Variable, using its width axis (with Geist Variable and system sans as fallback)
-**Body Font:** Geist Variable (with ui-sans-serif, system-ui)
+**Display Font:** Fraunces Variable (opsz, con Georgia, 'Times New Roman' e serif di sistema come fallback)
+**Body Font:** Geist Variable (con ui-sans-serif, system-ui)
 
-**Character:** A wide, quiet grotesk that reads like a film title card when set expanded and thin, paired with a neutral modern sans for reading. Sans-serif only, by the client's explicit choice.
+**Character:** Fraunces porta calore scenico, atmosfera da manifesto teatrale d'inizio Novecento e una forte personalità che rispecchia la magia "giocosa e festosa" di Maxime, sposandosi con il cappello, i mazzi di carte e il sipario di velluto rosso del menu. Vanta un vero corsivo ricco di espressività calligrafica (usato nei titoli per le parole emotive: "Tu credi nella *magia*?"). Il testo corrente e i controlli rimangono affidati a Geist per garantire pulizia, contrasto e massima leggibilità.
 
 ### Hierarchy
-- **Wordmark** (200, 125% width, uppercase, clamp 3.4–14rem, line-height 0.85): MAXIME in the hero only.
-- **Display** (400, 112% width, clamp 2.8–7.4rem, line-height 0.98): big statements such as the manifesto and "Pensa a una carta".
-- **Headline** (500, 112% width, clamp 2.3–4.6rem, line-height 0.98): act headings.
-- **Accent italic** (250–300, italic): the emphasised words inside display and headline (`<em>`). The lighter weight carries the emphasis, not a different face.
-- **Lead** (Geist 400, clamp 1.15–1.4rem, line-height 1.5, max 46ch): the paragraph beside each act heading.
+- **Wordmark** (Fraunces 600, uppercase, clamp 3.6–12rem, line-height 0.88): MAXIME nell'hero. Pesa visivamente più dello slogan, restituendo al nome la centralità e la memorabilità che gli competono.
+- **Claim** (Fraunces 400, clamp 1.1–1.7rem, tracking 0.08em): MAGIA / MERAVIGLIA / MEMORIA con le tre M rosse. Funziona da sottotitolo raffinato, elegante e subordinato al nome.
+- **Display** (Fraunces 400, clamp 2.8–7.4rem, line-height 0.98): grandi affermazioni come il manifesto e le aperture di sezione.
+- **Headline** (Fraunces 500, clamp 2.3–4.6rem, line-height 0.98): titoli degli atti.
+- **Accent italic** (Fraunces italic 350): parole enfatizzate all'interno di display e titoli (`<em>`), dove il vero corsivo di Fraunces dona ritmo teatrale ed emozione.
+- **Lead** (Geist 400, clamp 1.15–1.4rem, line-height 1.5, max 46ch): il paragrafo accanto a ciascun titolo d'atto.
 - **Body** (Geist 400, 1.0625rem, line-height 1.6).
-- **Label** (Geist 500, 0.72rem, 0.2em tracking, uppercase): functional labels only (form fields, card subtitles, credits line). Never placed as a kicker above a heading.
+- **Label** (Geist 500, 0.72rem, 0.2em tracking, uppercase): etichette funzionali (campi form, crediti, sottotitoli carte).
 
 ### Named Rules
-**The Sans-Only Rule.** No serif face anywhere, including accents, numerals and the logo.
+**The Theatrical Serif Exception.** I titoli, il wordmark MAXIME e i richiami di scena usano Fraunces Variable (serif caldo e teatrale), superando la vecchia regola del solo sans-serif per donare calore e identità spettacolare al sito. Il testo funzionale e di lettura resta sempre sans-serif (Geist).
 
-**The Width Carries Drama Rule.** Hierarchy is built with the width axis and weight (125% thin for the name, 112% medium for headings), not with a second display family.
+**The Name Leads The Drama Rule.** Il nome MAXIME guida sempre la gerarchia per peso (600) e presenza; lo slogan con le tre M lo accompagna come sottotitolo d'effetto senza rubargli la scena.
 
 ## Layout
 
@@ -281,7 +279,7 @@ Every corner is rounded:
 ### Navigation
 - **Logo: the signature.** "Mago Maxime" (nav and menu; plain "Maxime" as the signature under Chi sono) in a pen-signature hand with an underline swash (`src/components/Firma.astro`, pure SVG paths outlined from Herr Von Muellerhoff, SIL OFL), no capsule. It is drawn left to right as the page opens (1.5s clip reveal). It reads the first painted background beneath it and switches between chalk (dark ground, with a dark halo) and ink (light ground, with a chalk halo) so whatever scrolls under it never cuts the strokes. On phones (≤760px) it leaves the corner once the hero is passed; with the menu open it leaves the corner on every size and appears instead, large and chalk, on the closed curtain above the sections. The Menu control keeps its opaque void capsule.
 - "Prenota" is a red ticket stub. It is hidden below 560px; the menu stays.
-- **Menu: the stage curtain.** Opening it, two red velvet drapes (vertical folds, shadowed creases, light from above) slide in from the sides and unfurl until they meet: fast then settling (0.75s expo-out). Closing is the reverse feel: they part slowly, then whip away (0.65s ease-in). The sections are then written on the closed curtain in chalk Archivo, centred, with WhatsApp, email and Instagram below. Picking a section jumps the page behind the closed curtain, then the drapes part on that scene. Escape closes it, scroll is locked, the red nav ticket hides while it is open, and reduced motion swaps the movement for a fade.
+- **Menu: the stage curtain.** Opening it, two red velvet drapes (vertical folds, shadowed creases, light from above) slide in from the sides and unfurl until they meet: fast then settling (0.75s expo-out). Closing is the reverse feel: they part slowly, then whip away (0.65s ease-in). The sections are then written on the closed curtain in chalk Fraunces, centred, with WhatsApp, email and Instagram below. Hovering an act transforms it into expressive Fraunces italic. Picking a section jumps the page behind the closed curtain, then the drapes part on that scene. Escape closes it, scroll is locked, the red nav ticket hides while it is open, and reduced motion swaps the movement for a fade.
 
 ### Booking (Prenota)
 - Under the heading, the phone first: "Chiamami" and the number set large (tel:, red phone glyph), then WhatsApp and Instagram pills side by side.
@@ -289,7 +287,7 @@ Every corner is rounded:
 - Phones (≤760px): the contact stub is hidden, since WhatsApp and Chiama already sit above the form; the form padding tightens. Wider screens keep the stub with name, channels and zone.
 
 ### Hero
-- MAXIME (wordmark), then the rule of the three M stacked: MAGIA / MERAVIGLIA / MEMORIA in uppercase Archivo (500, 115% width, 1.9–3.4rem), each initial M in card red.
+- MAXIME (wordmark in Fraunces 600), then the rule of the three M stacked: MAGIA / MERAVIGLIA / MEMORIA in uppercase Fraunces (400, clamp 1.1–1.7rem), each initial M in card red, come sottotitolo di classe che lascia al nome il ruolo da protagonista.
 - Actions: the red ticket **Chiama** (tel:, the number shown from 900px), WhatsApp (square key on phones, pill on desktop) and, on desktop only, a ghost pill "Richiedi un preventivo" to the form.
 
 ### Chi sono
@@ -312,11 +310,11 @@ Every corner is rounded:
 - **Live gallery** (end of Lo spettacolo): `live-1…5` at 4:5 (five columns on desktop), rounded 18px, tilted ±1.2–1.4° like cards on the table. Phones swipe through a scroll-snap row; desktop shows four columns with the even ones dropped.
 
 ### Theatre bill (Lo spettacolo)
-- The three arts are set as a playbill: each name in thin, expanded, uppercase Archivo (250, 118% width, clamp 2.1–4.6rem) with its small suit glyph, one ash line beside it (≥1000px) or under it. Hairlines between rows. The spiral glyph has 2.5 open turns so it holds at icon size.
+- The three arts are set as a playbill: each name in uppercase Fraunces (350, clamp 2.1–4.6rem) with its small suit glyph, one ash line beside it (≥1000px) or under it. Hairlines between rows. The spiral glyph has 2.5 open turns so it holds at icon size.
 
 ### Event photos (Per il tuo evento)
 - One real photo per kind of evening (`public/maxime/evento-cuori|quadri|fiori|picche.jpg`, 4:5, pre-graded B&W): the guest under white drapes, the gala table, the stage microphone, the hands with the deck.
-- Each tile: 18px radius, a bottom gradient to void carrying the event name in chalk Archivo (500, 110%) with an arrow, nothing else. The whole tile links to the form with the suit pre-selected.
+- Each tile: 18px radius, a bottom gradient to void carrying the event name in chalk Fraunces (500) with an arrow, nothing else. The whole tile links to the form with the suit pre-selected.
 - Phones: one per row, landscape 3:2, served from dedicated crops (`evento-<seme>-largo.jpg`) through `Photo`'s `mobile` prop (a `<picture>` source below 900px). ≥900px: four portrait 4:5 tiles in a row. Hover zooms the photo 5% and nudges the arrow; focus draws a red ring.
 
 ### Signature
